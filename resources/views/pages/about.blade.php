@@ -57,6 +57,6 @@
             Edit Article 1
         </a>-->
         <h1>My favorite singer</h1>
-        <img src="{{ url('images/imagethevoice.jpg') }}" alt="" >
+        <img src="{{ url('images/imagethevoice.jpg') }}" alt="Article Image" class = "img-responsive" style = "max-width: 50%" >
     </div>
 @stop

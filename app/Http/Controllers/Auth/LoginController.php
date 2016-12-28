@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -40,9 +41,11 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
+    //Comment ออกได้นะ เพราะ Lib ของ Laravel ทำให้แล้ว
     public function logout(Request $request)
     {
         $this->performLogout($request);
-        return redirect()->route('/');
+        //return redirect()->route('articles');
+        return redirect('articles');
     }
 }

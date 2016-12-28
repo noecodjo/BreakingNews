@@ -15,13 +15,6 @@ class ArticlesController extends Controller
     {
         $this->middleware('auth');
     }
-    // public function index(){
-    //     return "This is article page from controller";
-    // }
-
-    // public function show($id){
-    //     return "This is article page for ID " . $id;
-    // }
 
     public function index(){
         //$articles = Article::all();
@@ -47,26 +40,7 @@ class ArticlesController extends Controller
         return view('articles.create', compact('tag_list'));
     }
 
-    // public function store(ArticleRequest $Request){
-    //     // $input = Request::all();
-    //     // Article::create($input);
-    //     // Return redirect('articles');
-
-    //     $article = new Article($request->all());
-    //     Auth::user()->articles()->save($article);
-    //     return redirect('articles');
-    // }
-
     public function store(ArticleRequest $request){
-        // $article = new Article($request->all());
-        // Auth::user()->articles()->save($article);
-        // $tagsId = $request->input('tag_list');
-        // if(!empty($tagsId))
-        //     //http://stackoverflow.com/questions/23968415/laravel-eloquent-attach-vs-sync
-        //     $article->tags()->sync($tagsId);
-        // return redirect('articles');
-
-
         $article = new Article($request->all());
         if($request->hasFile('image')){
             $image_filename = $request->file('image')->getClientOriginalName();
@@ -84,13 +58,6 @@ class ArticlesController extends Controller
         return redirect('articles');
     }
 
-    // public function edit($id){
-    //     $article = Article::find($id);
-    //     if(empty($article))
-    //         abort(404);
-    //     return view('articles.edit', compact('article'));
-    // }
-
     public function edit($id){
         $article = Article::find($id);
         $tag_list = Tag::pluck('name', 'id');
@@ -104,24 +71,7 @@ class ArticlesController extends Controller
         return view('articles.edit', compact('article', 'tag_list'));
     }
 
-    // public function update($id, ArticleRequest $request){
-    //     $article = Article::findOrFail($id);
-    //     $article->update($request->all());
-    //     session()->flash('flash_message', 'Edit Article Complete');
-    //     return redirect('articles');
-    // }
-
     public function update($id, ArticleRequest $request){
-        // $article = Article::findOrFail($id);
-        // $article->update($request->all());
-        // $tagsId = $request->input('tag_list');
-        // if(!empty($tagsId))
-        //     $article->tags()->sync($tagsId);
-        // else
-        //     $article->tags()->detach();
-        // session()->flash('flash_message', 'Edit Article Complete');
-        // return redirect('articles');
-
         $article = Article::findOrFail($id);
         $article->update($request->all());
         if($request->hasFile('image')){
@@ -139,6 +89,12 @@ class ArticlesController extends Controller
         else
             $article->tags()->detach();
         session()->flash('flash_message', 'Edit Article Complete');
+        return redirect('articles');
+    }
+
+    public function destroy($id){
+        $article = Article::findOrFail($id);
+        $article->delete();
         return redirect('articles');
     }
 }

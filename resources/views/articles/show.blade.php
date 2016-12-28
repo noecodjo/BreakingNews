@@ -2,7 +2,15 @@
 @section('content')
     <div class="page-header" id="banner">
         <h1>{{ $article->title }}</h1>
-        <a class="btn btn-primary" href="{{ url("articles/{$article->id}/edit") }}"> Edit</a>
+        <div class="btn-group" role="group">
+            <a class="btn btn-primary" href="{{ url("articles/{$article->id}/edit") }}"> Edit</a>
+
+            {{ FORM::open(array('url' => 'articles/' . $article->id, 'class' => 'pull-right')) }}
+            {{ FORM::hidden('_method', 'DELETE') }}
+            {{ FORM::submit('Delete', array('class' => 'btn btn-danger')) }}
+            {{ FORM::close() }}
+            
+        </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">

@@ -38,22 +38,51 @@
                             <li>
                                 <a href="{{ url('articles/create') }}">New Article</a>
                             </li>
-                            <li>
-                                <a href="{{ url('/logout') }}"> {{ Auth::user()->name }} (Logout)</a>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>    
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                    <li><a tabindex="-1" href="#">Action</a></li>
+                                    <li><a tabindex="-1" href="#">Another action</a></li>
+                                    <li><a tabindex="-1" href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a tabindex="-1" href="#">Separated link</a></li>
+                                    <li>
+                                        <a href="{{ url('/logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
                             </li>
+
+                            {{-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul> --}}
                         @endif
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-        <div class="navbar navbar-default" role="navigation">...</div>
         <div class="container">
             @yield('content')
         </div>
-        <div class="footer container-fluid">
+        <div class="footer text-center">
             Copyright &copy; 2016
         </div>
-        {!! HTML::script('js/app.js') !!}
         {!! HTML::script('js/jquery.min.js') !!}
         {!! HTML::script('bootstrap/js/bootstrap.min.js') !!}
     </body>
